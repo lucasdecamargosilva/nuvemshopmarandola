@@ -69,4 +69,4 @@
 </div>
 
 <!-- Provador Virtual - Marandola Modas -->
-<script src="https://raw.githubusercontent.com/lucasdecamargosilva/nuvemshopmarandola/main/provador-v2.js" defer></script>
+<script src="https://cdn.jsdelivr.net/gh/lucasdecamargosilva/nuvemshopmarandola@main/provador-v2.js" defer></script>
