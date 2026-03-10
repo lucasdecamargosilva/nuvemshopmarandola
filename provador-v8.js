@@ -221,10 +221,10 @@
         .mc-lead-form input[type="text"].mc-input,
         .mc-lead-form input[type="tel"].mc-input {
             width: 100% !important; 
-            height: 50px !important;
-            padding: 0 15px !important; 
+            height: 60px !important;
+            padding: 0 20px !important; 
             border: 1px solid #1b1b1b !important;
-            font-size: 13px !important; 
+            font-size: 16px !important; 
             font-family: inherit !important;
             background: #ffffff !important; 
             color: #1b1b1b !important; 
