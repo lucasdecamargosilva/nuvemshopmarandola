@@ -1,13 +1,13 @@
-console.log('🚀 [INÍCIO] Script provador-v3.js está tentando carregar...');
+// Script carregado — Provador Virtual Marandola Modas (Nuvemshop)
 (function () {
     // ─── LOG HELPER ───────────────────────────────────────────────────────────────
     const LOG = {
-        info: (...args) => console.log('🟢 [PROVADOR INFO]', ...args),
-        ok: (...args) => console.log('✅ [PROVADOR OK]', ...args),
-        warn: (...args) => console.warn('⚠️ [PROVADOR WARN]', ...args),
-        error: (...args) => console.error('❌ [PROVADOR ERROR]', ...args),
-        group: (name) => console.group('📦 ' + name),
-        end: () => console.groupEnd(),
+        info: () => { },
+        ok: () => { },
+        warn: () => { },
+        error: () => { },
+        group: () => { },
+        end: () => { },
     };
 
     // ===============================================
@@ -480,6 +480,8 @@ console.log('🚀 [INÍCIO] Script provador-v3.js está tentando carregar...');
 
         // Seletores específicos para Nuvemshop + Fallbacks
         const nuvemshopSelectors = [
+            '.js-swiper-product',
+            '.js-product-slide-img',
             '.js-product-image',
             '.js-main-image-placeholder',
             '.cloud-zoom',
@@ -508,14 +510,16 @@ console.log('🚀 [INÍCIO] Script provador-v3.js está tentando carregar...');
 
                 function positionBtn() {
                     const rect = el.getBoundingClientRect();
-                    const btnTop = rect.top + (isMobile ? 70 : 15);
+                    const isMobile = window.innerWidth < 768;
+                    const btnTop = rect.top + (isMobile ? 15 : 15);
                     const threshold = isMobile ? 80 : 120;
-                    if (btnTop < threshold || rect.bottom < 0) {
+
+                    if (rect.bottom < 0 || rect.top > window.innerHeight) {
                         openBtn.style.visibility = 'hidden';
                     } else {
                         openBtn.style.visibility = 'visible';
                         openBtn.style.top = btnTop + 'px';
-                        openBtn.style.left = (rect.right - (isMobile ? 100 : 180)) + 'px';
+                        openBtn.style.left = (rect.right - (isMobile ? 85 : 95)) + 'px';
                     }
                 }
                 positionBtn();
