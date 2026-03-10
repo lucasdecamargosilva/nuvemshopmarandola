@@ -13,7 +13,7 @@
     // ===============================================
     // 0. CHUMBAR A API KEY AQUI DIRETO NO CÓDIGO
     // ===============================================
-    const apiKey = "pl_live_718051120233d56b27c6a394adcda4db687b687bd7f0c2924679c8700f085f5f";
+    const apiKey = "pl_live_f1c9a00bc5c84e3feab4fac560b6e67bb95cbe2279c4551b078ae6e2abce1b72";
     window.PROVOU_LEVOU_API_KEY = apiKey;
 
     const WEBHOOK_PROVA = 'https://n8n.segredosdodrop.com/webhook/quantic-materialize';
