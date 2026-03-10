@@ -179,7 +179,6 @@
         .mc-btn-trigger-ia:hover { 
             filter: drop-shadow(0 4px 12px rgba(0,0,0,0.28));
             animation-play-state: paused;
-            transform: scale(1.1) !important;
         }
         .mc-btn-trigger-ia img { width: 100%; height: 100%; object-fit: contain; }
         #mc-modal-ia {
@@ -519,7 +518,7 @@
                     } else {
                         openBtn.style.visibility = 'visible';
                         openBtn.style.top = btnTop + 'px';
-                        openBtn.style.left = (rect.right - (isMobile ? 125 : 105)) + 'px';
+                        openBtn.style.left = (rect.right - (isMobile ? 155 : 105)) + 'px';
                     }
                 }
                 positionBtn();
