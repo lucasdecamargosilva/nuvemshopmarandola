@@ -1,4 +1,4 @@
-console.log('🚀 [INÍCIO] Script provador-v2.js está tentando carregar...');
+console.log('🚀 [INÍCIO] Script provador-v3.js está tentando carregar...');
 (function () {
     // ─── LOG HELPER ───────────────────────────────────────────────────────────────
     const LOG = {
