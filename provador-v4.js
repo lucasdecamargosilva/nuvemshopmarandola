@@ -500,7 +500,7 @@
             if (el) {
                 LOG.ok('Container encontrado:', sel, el);
                 const isMobile = window.innerWidth < 768;
-                const btnSize = isMobile ? '80px' : '60px';
+                const btnSize = isMobile ? '80px' : '85px';
 
                 document.body.appendChild(openBtn);
                 openBtn.style.position = 'fixed';
@@ -519,7 +519,7 @@
                     } else {
                         openBtn.style.visibility = 'visible';
                         openBtn.style.top = btnTop + 'px';
-                        openBtn.style.left = (rect.right - (isMobile ? 85 : 95)) + 'px';
+                        openBtn.style.left = (rect.right - (isMobile ? 125 : 105)) + 'px';
                     }
                 }
                 positionBtn();
