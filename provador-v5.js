@@ -500,7 +500,7 @@
             if (el) {
                 LOG.ok('Container encontrado:', sel, el);
                 const isMobile = window.innerWidth < 768;
-                const btnSize = isMobile ? '80px' : '85px';
+                const btnSize = isMobile ? '80px' : '75px';
 
                 document.body.appendChild(openBtn);
                 openBtn.style.position = 'fixed';
