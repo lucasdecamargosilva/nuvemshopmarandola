@@ -1,12 +1,12 @@
 (function () {
     // ─── LOG HELPER ───────────────────────────────────────────────────────────────
     const LOG = {
-        info: () => { },
-        ok: () => { },
-        warn: () => { },
-        error: () => { },
-        group: () => { },
-        end: () => { },
+        info: (...args) => console.log('🟢 [PROVADOR INFO]', ...args),
+        ok: (...args) => console.log('✅ [PROVADOR OK]', ...args),
+        warn: (...args) => console.warn('⚠️ [PROVADOR WARN]', ...args),
+        error: (...args) => console.error('❌ [PROVADOR ERROR]', ...args),
+        group: (name) => console.group('📦 ' + name),
+        end: () => console.groupEnd(),
     };
 
     // ===============================================
@@ -447,6 +447,8 @@
 
     function init() {
         LOG.info('Iniciando provador...');
+        LOG.info('URL Atual:', window.location.href);
+        LOG.info('User Agent:', navigator.userAgent);
 
         const fontLink = document.createElement('link');
         fontLink.href = 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap';
@@ -489,9 +491,11 @@
         ];
 
         let placed = false;
+        LOG.info('Procurando container para o botão...');
         for (const sel of [...nuvemshopSelectors, ...fallbackContainers]) {
             const el = document.querySelector(sel);
             if (el) {
+                LOG.ok('Container encontrado:', sel, el);
                 const isMobile = window.innerWidth < 768;
                 const btnSize = isMobile ? '80px' : '60px';
 
@@ -521,8 +525,11 @@
             }
         }
         if (!placed) {
+            LOG.warn('Nenhum container encontrado. Usando posicionamento fixo fallback.');
             document.body.appendChild(openBtn);
-            openBtn.style.cssText = 'position:fixed;bottom:100px;left:20px;z-index:50;width:60px;height:60px;display:flex;align-items:center;justify-content:center;cursor:pointer;background:none;border:none;padding:0;';
+            openBtn.style.cssText = 'position:fixed;bottom:100px;left:20px;z-index:999999;width:60px;height:60px;display:flex;align-items:center;justify-content:center;cursor:pointer;background:none;border:none;padding:0;';
+        } else {
+            LOG.ok('Botão injetado com sucesso no container.');
         }
 
         const modal = document.getElementById('mc-modal-ia');
