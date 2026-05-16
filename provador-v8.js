@@ -692,71 +692,92 @@
         };
 
         confirmBtnYes.onclick = async () => {
-            if (confirmStep) confirmStep.style.display = 'none';
-            if (uploadStep) uploadStep.style.display = 'none';
-            const loadingBox = document.getElementById('mc-loading-box');
-            if (loadingBox) loadingBox.style.display = 'block';
 
-            const keyToUse = window.PROVOU_LEVOU_API_KEY;
 
-            // Seletores de imagem para Nuvemshop
-            const prodImgTag = document.querySelector(
-                '.js-product-image, .cloud-zoom img, .js-main-image-placeholder img, ' +
-                '.product-colum-left img, .image-show img, meta[property="og:image"]'
-            );
+            if (window._provouLevouBusy) return;
 
-            let prodImg = '';
-            if (prodImgTag) {
-                if (prodImgTag.tagName === 'META') {
-                    prodImg = prodImgTag.content;
-                } else {
-                    prodImg = prodImgTag.dataset.src || prodImgTag.dataset.lazy || prodImgTag.src;
-                }
-            }
 
-            const prodName = document.querySelector('.js-product-name, h1.product-name, h1.product__title, h1')?.innerText || document.title;
+            window._provouLevouBusy = true;
+
 
             try {
-                const fd = new FormData();
-                fd.append('person_image', userPhoto);
-                fd.append('whatsapp', '55' + phoneInput.value.replace(/\D/g, ''));
-                fd.append('phone_raw', phoneInput.value);
-                fd.append('product_name', prodName);
-                fd.append('product_type', currentProduct.category);
-                fd.append('product_fit', currentProduct.fit);
-                fd.append('api_key', keyToUse);
-                fd.append('height', '');
-                fd.append('weight', '');
-                fd.append('cintura', '');
-                fd.append('quadril', '');
+                if (confirmStep) confirmStep.style.display = 'none';
+                if (uploadStep) uploadStep.style.display = 'none';
+                const loadingBox = document.getElementById('mc-loading-box');
+                if (loadingBox) loadingBox.style.display = 'block';
 
-                if (prodImg) {
-                    try {
-                        const b = await fetch(prodImg).then(r => r.blob());
-                        fd.append('product_image', b, 'p.png');
-                    } catch (e) { }
+                const keyToUse = window.PROVOU_LEVOU_API_KEY;
+
+                // Seletores de imagem para Nuvemshop
+                const prodImgTag = document.querySelector(
+                    '.js-product-image, .cloud-zoom img, .js-main-image-placeholder img, ' +
+                    '.product-colum-left img, .image-show img, meta[property="og:image"]'
+                );
+
+                let prodImg = '';
+                if (prodImgTag) {
+                    if (prodImgTag.tagName === 'META') {
+                        prodImg = prodImgTag.content;
+                    } else {
+                        prodImg = prodImgTag.dataset.src || prodImgTag.dataset.lazy || prodImgTag.src;
+                    }
                 }
 
-                const res = await fetch(WEBHOOK_PROVA, { method: 'POST', body: fd });
+                const prodName = document.querySelector('.js-product-name, h1.product-name, h1.product__title, h1')?.innerText || document.title;
 
-                if (res.status === 200) {
-                    const blob = await res.blob();
-                    document.getElementById('mc-loading-box').style.display = 'none';
-                    document.getElementById('mc-final-view-img').src = URL.createObjectURL(blob);
-                    document.querySelector('.mc-card-ia').classList.add('is-result');
-                    document.getElementById('mc-step-result').style.display = 'flex';
-                } else {
+                try {
+                    const fd = new FormData();
+                    fd.append('person_image', userPhoto);
+                    fd.append('whatsapp', '55' + phoneInput.value.replace(/\D/g, ''));
+                    fd.append('phone_raw', phoneInput.value);
+                    fd.append('product_name', prodName);
+                    fd.append('product_type', currentProduct.category);
+                    fd.append('product_fit', currentProduct.fit);
+                    fd.append('api_key', keyToUse);
+                    fd.append('height', '');
+                    fd.append('weight', '');
+                    fd.append('cintura', '');
+                    fd.append('quadril', '');
+
+                    if (prodImg) {
+                        try {
+                            const b = await fetch(prodImg).then(r => r.blob());
+                            fd.append('product_image', b, 'p.png');
+                        } catch (e) { }
+                    }
+
+                    const res = await fetch(WEBHOOK_PROVA, { method: 'POST', body: fd });
+
+                    if (res.status === 200) {
+                        const blob = await res.blob();
+                        document.getElementById('mc-loading-box').style.display = 'none';
+                        document.getElementById('mc-final-view-img').src = URL.createObjectURL(blob);
+                        document.querySelector('.mc-card-ia').classList.add('is-result');
+                        document.getElementById('mc-step-result').style.display = 'flex';
+                    } else {
+                        document.getElementById('mc-loading-box').style.display = 'none';
+                        document.getElementById('mc-step-upload').style.display = 'block';
+                        alert("Erro ao processar imagem. Tente novamente.");
+                    }
+
+                } catch (err) {
                     document.getElementById('mc-loading-box').style.display = 'none';
                     document.getElementById('mc-step-upload').style.display = 'block';
-                    alert("Erro ao processar imagem. Tente novamente.");
+                    alert("Erro de conexão.");
                 }
+        
 
-            } catch (err) {
-                document.getElementById('mc-loading-box').style.display = 'none';
-                document.getElementById('mc-step-upload').style.display = 'block';
-                alert("Erro de conexão.");
-            }
-        };
+
+            } finally {
+
+
+                window._provouLevouBusy = false;
+
+
+            }}
+
+
+        ;
     }
 
     if (document.readyState === 'complete') init();
